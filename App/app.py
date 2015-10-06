@@ -4,6 +4,7 @@ import random
 import pandas as pd
 from flask import Flask, render_template, request
 from image_request import *
+from utils import *
 
 app = Flask(__name__)
 
@@ -15,9 +16,10 @@ def post_index(url = None, img_name = None):
         url = request.form['url']
         print url
         try:
-    	    img_name = import_img(url)
+    	    img_name, img_matrix = import_img(url)
+            y_pred, y_pred_proba = predict_one(img_matrix)
         except:
-            print 'Error'
+            img_name = 'Error'
     #Download img @ url into a specific folder
     #open a database connecition loading incorrectly named photos
     #generate a dictionary using the connection
@@ -39,8 +41,9 @@ def contact():
 
 if __name__ == '__main__':
 	#prepare a py init folder
-	#load model
 	#load utilities for prediction
+    with open('nn.pkl') as f:
+        nn = pickle.load(f)
 	#take image url
 	#download image and store
 	#store string in posgres
@@ -54,7 +57,7 @@ if __name__ == '__main__':
 	SELECT * FROM __ WHERE y_pred NOT EQUAL 
 
 	'''
-    filler_imgs = os.listdir('./static/data/examples/')
+    filler_imgs = os.listdir('./static/data/new_images/')
 
     app.run(debug=True)
     #app.run(host = '0.0.0.0')#, port=80, debug = True)

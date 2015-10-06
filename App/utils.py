@@ -98,3 +98,13 @@ class EarlyStopping(object):
             nn.load_params_from(self.best_weights)
             raise StopIteration()
 
+def predict_one(img_matrix):
+    img_standardized = img_size_standarizer(img_matrix, 106, False)
+    img_nn = np.array([img_standardized]).astype('float32')
+    prediction = nn.predict(img_nn)
+    prediction_proba = nn.predict_proba(img_nn)
+    print prediction[0], np.max(prediction_proba[0])
+    return (prediction[0], np.max(prediction_proba[0]))
+
+
+

@@ -65,22 +65,26 @@
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-            {% if img_name %}
-            <h3> Currently Implementing Prediction for this Image </h3>
-            <img class = "container" src="../static/data/new_images/{{img_name}}" alt="">
+            {% if img_name == None %}
 
-            {% else %}
             <h1>A Warm Welcome!</h1>
             <p>This is my simple exploratory project into machine learning using Neural Nets. 
             Feel free to input an image url and this machine learning classifier will attempt to determine whether it is a cat or a dog.<br>
             Alternatively, you can help our classifier by telling us whether the images below are legitimate images that were incorrect.
-
             </p>
             <form>
                 <input class="input-lg" type = "text" name = 'url'>
                 <br>
                 <input class="btn btn-primary btn-large" type="submit" value="Let's see if it works!" formmethod = "POST">
             <form>
+
+            {% elif img_name == 'Error' %}
+            <h2> Invalid image url. (URLS should end with jpeg, png,etc.) </h2>
+
+            {% else %}
+            <h3> Currently Implementing Prediction for this Image </h3>
+            <img class = "container" src="../static/data/new_images/{{img_name}}" alt="">
+
             {% endif %}
 
         </header>
