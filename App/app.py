@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 
 import os
 import sys
@@ -12,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/index.html')
 @app.route('/', methods = ['GET', 'POST'])
-def post_index(url = None, img_name = None):
+def index(url = None, img_name = None):
     prediction = (None, None)
     random.shuffle(filler_imgs)
     if request.method == 'POST':
@@ -62,5 +61,5 @@ if __name__ == '__main__':
     filler_imgs = os.listdir('./static/data/new_images/')
 
     #app.run(debug=True)
-    app.run(host = '0.0.0.0', port=80, debug = True)
+    app.run(host = '0.0.0.0', port=5000, debug = True)
 
