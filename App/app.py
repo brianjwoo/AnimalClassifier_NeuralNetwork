@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 import os
 import sys
 import random
@@ -11,13 +13,16 @@ app = Flask(__name__)
 @app.route('/index.html')
 @app.route('/', methods = ['GET', 'POST'])
 def post_index(url = None, img_name = None):
+    prediction = (None, None)
     random.shuffle(filler_imgs)
     if request.method == 'POST':
         url = request.form['url']
-        print url
+#        print url
         try:
     	    img_name, img_matrix = import_img(url)
-            y_pred, y_pred_proba = predict_one(img_matrix)
+#            print img_name, img_matrix.shape
+            prediction = predict_one(img_matrix, nn) #Tuple (animal and probability)
+#            print prediction
             
         except:
             img_name = 'Error'
@@ -26,7 +31,7 @@ def post_index(url = None, img_name = None):
     #generate a dictionary using the connection
     #load information target classified and probability as well as preivously rated 
     #
-    return render_template('index.html', img_name=img_name, instances = filler_imgs[:4])
+    return render_template('index.html', img_name=img_name, instances = filler_imgs[:4], prediction = prediction)
 
 
 
@@ -54,12 +59,8 @@ if __name__ == '__main__':
 
 	#generate incorrect labels
 
-    q = '''
-	SELECT * FROM __ WHERE y_pred NOT EQUAL 
-
-	'''
     filler_imgs = os.listdir('./static/data/new_images/')
 
-    app.run(debug=True)
-    #app.run(host = '0.0.0.0')#, port=80, debug = True)
+    #app.run(debug=True)
+    app.run(host = '0.0.0.0', port=80, debug = True)
 

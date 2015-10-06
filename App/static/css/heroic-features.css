@@ -20,7 +20,7 @@ footer {
     margin: 50px 0;
 }
 
-.container img {
-  max-height: 50%;
-  max-width: 50%;
+.nn {
+  max-height: 500px;
+  max-width: auto;
 }

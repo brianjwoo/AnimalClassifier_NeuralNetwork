@@ -1,2 +1,3 @@
 /App/static/data/examples/*
 /App/Model/nn.pkl
+/App/nn.pkl

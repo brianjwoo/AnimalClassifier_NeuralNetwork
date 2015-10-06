@@ -82,9 +82,9 @@
             <h2> Invalid image url. (URLS should end with jpeg, png,etc.) </h2>
 
             {% else %}
-            <h3> Currently Implementing Prediction for this Image </h3>
-            <img class = "container" src="../static/data/new_images/{{img_name}}" alt="">
-
+            <h3> Currently Implementing Prediction for this Image... </h3>
+            <img class = "nn" src="../static/data/new_images/{{img_name}}" alt="">
+            <h2> This is a {{prediction[0]}} with probability {{prediction[1]}}</h2>
             {% endif %}
 
         </header>
@@ -105,7 +105,7 @@
             {% for i in instances %}
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="../static/data/examples/{{i}}" alt="">
+                    <img src="../static/data/new_images/{{i}}" alt="">
                     <div class="caption">
                         <h3>Feature Label</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
