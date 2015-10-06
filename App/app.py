@@ -18,6 +18,7 @@ def post_index(url = None, img_name = None):
         try:
     	    img_name, img_matrix = import_img(url)
             y_pred, y_pred_proba = predict_one(img_matrix)
+            
         except:
             img_name = 'Error'
     #Download img @ url into a specific folder
