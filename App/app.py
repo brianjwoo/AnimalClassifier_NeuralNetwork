@@ -11,7 +11,7 @@ from image_request import *
 from utils import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./animal_img.db'
 db = SQLAlchemy(app)
 
 class AnimalImg(db.Model):
