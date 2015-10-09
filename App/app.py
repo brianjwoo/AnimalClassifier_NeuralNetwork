@@ -60,12 +60,15 @@ def index(url = None, img_name = None):
 
 @app.route('/<image>/<classification>')
 def update(image = None, classification = None):
+	animal_update = AnimalImg.query.filter_by(image=image).first()
+ 	#print animal_update
 	if classification == 'cat':
-		print image, 0
+		animal_update.cat_count +=1
 	elif classification == 'dog':
-		print image, 1
+		animal_update.dog_count +=1
 	else:
-		print image, 2
+		animal_update.unknown_count +=1
+	db.session.commit()
 	return redirect(url_for('index'))
 
 
