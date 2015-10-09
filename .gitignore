@@ -1,3 +1,4 @@
 /App/static/data/examples/*
+/App/static/data/new_images/*
 /App/Model/nn.pkl
 /App/nn.pkl

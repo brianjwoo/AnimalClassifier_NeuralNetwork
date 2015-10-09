@@ -82,9 +82,8 @@
             <h2> Invalid image url. (URLS should end with jpeg, png,etc.) </h2>
 
             {% else %}
-            <h3> Currently Implementing Prediction for this Image... </h3>
             <img class = "nn" src="../static/data/new_images/{{img_name}}" alt="">
-            <h2> This is a {{prediction[0]}} with probability {{prediction[1]}}</h2>
+            <h2> {{prediction[1]}} {{prediction[0]}}</h2>
             {% endif %}
 
         </header>
@@ -94,7 +93,7 @@
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
-                <h3>Poorly Classified Targets</h3>
+                <h3>Previously Classified Targets</h3>
             </div>
         </div>
         <!-- /.row -->
@@ -105,13 +104,16 @@
             {% for i in instances %}
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="../static/data/new_images/{{i}}" alt="">
+                    <img src="../static/data/new_images/{{i.image}}" alt="">
                     <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <h3>{{i.classification}}</h3>
+                        <p>{{i.probability}}</p>
                         <p>
-                            <a href="#" class="btn btn-primary">Cat!</a> <a href="#" class="btn btn-default">Dog!</a>
+                            <a href="#" class="btn btn-primary">Cat!  ({{i.cat_count}})</a> <a href="#" class="btn btn-primary">Dog!  ({{i.dog_count}})</a>
                         </p>
+			<p>
+			   <a href="#" class="btn btn-default"> Bad Training Example.. (0) </a>
+			</p>
                     </div>
                 </div>
             </div>
@@ -126,7 +128,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Brian Woo 2015</p>
+                    <p>Copyright &copy; B 2015</p>
                 </div>
             </div>
         </footer>
