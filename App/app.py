@@ -27,8 +27,8 @@ class AnimalImg(db.Model):
     def __init__(self, url, classification, probability):
         self.url = url
         self.image = url.split('/')[-1]
-        self.classification = classification
-        self.probability = probability
+        self.classification = classification.capitalize()
+        self.probability = round(probability, 3)
         self.dog_count = 0
         self.cat_count = 0
         self.unknown_count = 0
@@ -60,7 +60,12 @@ def index(url = None, img_name = None):
 
 @app.route('/<image>/<classification>')
 def update(image = None, classification = None):
-	print image, classification
+	if classification == 'cat':
+		print image, 0
+	elif classification == 'dog':
+		print image, 1
+	else:
+		print image, 2
 	return redirect(url_for('index'))
 
 

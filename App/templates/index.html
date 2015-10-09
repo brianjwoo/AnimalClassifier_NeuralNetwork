@@ -107,12 +107,13 @@
                     <img src="../static/data/new_images/{{i.image}}" alt="">
                     <div class="caption">
                         <h3>{{i.classification}}</h3>
-                        <p>{{i.probability}}</p>
+			<p><b>{{i.probability}}</b></p>
                         <p>
-                            <a href="#" class="btn btn-primary">Cat!  ({{i.cat_count}})</a> <a href="#" class="btn btn-primary">Dog!  ({{i.dog_count}})</a>
+                            <a href="{{ url_for('update', image = i.image, classification = 'cat') }}" class="btn btn-primary">Cat!  ({{i.cat_count}})</a>
+			    <a href="{{ url_for('update', image = i.image, classification = 'dog') }}" class="btn btn-primary">Dog!  ({{i.dog_count}})</a>
                         </p>
 			<p>
-			   <a href="#" class="btn btn-default"> Bad Training Example.. (0) </a>
+			   <a href="{{ url_for('update', image = i.image, classification = 'unknown') }}" class="btn btn-default"> Bad Training Example.. ({{i.unknown_count}}) </a>
 			</p>
                     </div>
                 </div>
