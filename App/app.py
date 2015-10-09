@@ -3,7 +3,7 @@ import os
 import sys
 import random
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.sql.expression import func
 
@@ -21,7 +21,8 @@ class AnimalImg(db.Model):
     classification = db.Column(db.String(10))
     probability = db.Column(db.Float)
     dog_count = db.Column(db.Integer)
-    cat_count = db.Column(db.Integer) 
+    cat_count = db.Column(db.Integer)
+    unknown_count = db.Column(db.Integer) 
 
     def __init__(self, url, classification, probability):
         self.url = url
@@ -30,6 +31,7 @@ class AnimalImg(db.Model):
         self.probability = probability
         self.dog_count = 0
         self.cat_count = 0
+        self.unknown_count = 0
 
     def __repr__(self):
         return self.url
@@ -56,6 +58,10 @@ def index(url = None, img_name = None):
     #animal_instances = db.session.query(AnimalImg).order_by(func.random()).limit(4)
     return render_template('index.html', img_name=img_name, prediction = prediction, instances = animal_instances)
 
+@app.route('/<image>/<classification>')
+def update(image = None, classification = None):
+	print image, classification
+	return redirect(url_for('index'))
 
 
 @app.route('/about.html')
@@ -73,16 +79,8 @@ if __name__ == '__main__':
 	#load utilities for prediction
     with open('nn.pkl') as f:
         nn = pickle.load(f)
-	#take image url
-	#download image and store
-	#store string in posgres
-	#predict
 
-	#CHECK IF TABLE EXISTS OTHERwiSE POPULATE
-
-	#generate incorrect labels
-
-    filler_imgs = os.listdir('./static/data/new_images/')
+    #filler_imgs = os.listdir('./static/data/new_images/')
 
     #app.run(debug=True)
     app.run(host = '0.0.0.0', port=5000, debug = True)
