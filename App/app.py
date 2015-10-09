@@ -5,6 +5,7 @@ import random
 import pandas as pd
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.sql.expression import func
 
 from image_request import *
 from utils import *
@@ -50,12 +51,9 @@ def index(url = None, img_name = None):
             db.session.commit() 
         except:
             img_name = 'Error'
-    #Download img @ url into a specific folder
-    #open a database connecition loading incorrectly named photos
-    #generate a dictionary using the connection
-    #load information target classified and probability as well as preivously rated 
-    animal_instances = AnimalImg.query.limit(4)
-
+    animal_instances = AnimalImg.query.order_by(func.random()).limit(4)
+    #animal_instances = AnimalImg.query.limit(4)
+    #animal_instances = db.session.query(AnimalImg).order_by(func.random()).limit(4)
     return render_template('index.html', img_name=img_name, prediction = prediction, instances = animal_instances)
 
 
